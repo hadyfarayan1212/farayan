@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>تعمیرات لوازم خانگی فرایان</title>
+  <meta name="description" content="تعمیر تخصصی یخچال، لباسشویی، کولر و انواع لوازم خانگی برقی در قم">
+  <script src="https://tapi.bale.ai/miniapp.js?3"></script>
+  <style>
+    :root {
+      --primary: #0f4c81;
+      --primary-light: #1a6bb5;
+      --primary-dark: #0a355c;
+      --accent: #00a896;
+      --bg: #f5f7fa;
+      --card: #fff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+      -webkit-text-size-adjust: 100%;
+    }
+    .wrap { max-width: 480px; margin: 0 auto; padding-bottom: 80px; }
+
+    .hero {
+      background: linear-gradient(145deg, #0a355c, #0f4c81 55%, #1a6bb5);
+      color: #fff;
+      padding: 28px 20px 36px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+    .hero h1 { font-size: 20px; margin-bottom: 6px; }
+    .hero p { font-size: 13px; opacity: 0.9; }
+    .stats {
+      display: flex;
+      gap: 18px;
+      margin-top: 18px;
+    }
+    .stats strong { display: block; font-size: 15px; }
+    .stats span { font-size: 11px; opacity: 0.75; }
+
+    .nav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: #fff;
+      border-top: 1px solid var(--border);
+      display: flex;
+      z-index: 50;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .nav button {
+      flex: 1;
+      border: 0;
+      background: none;
+      padding: 8px 2px 6px;
+      font-size: 11px;
+      color: var(--muted);
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .nav button.on { color: var(--primary); font-weight: bold; }
+    .nav .ic { display: block; font-size: 18px; margin-bottom: 2px; }
+
+    .main { padding: 16px; }
+    .sec { display: none; }
+    .sec.on { display: block; }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 12px rgba(15,76,129,0.07);
+      border: 1px solid #eef2f6;
+    }
+    .card h2 {
+      font-size: 15px;
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+    }
+    .row {
+      display: flex;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .row:last-child { border-bottom: 0; }
+    .ico {
+      width: 36px; height: 36px;
+      background: #e8f4fd;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .lbl { font-size: 11px; color: var(--muted); }
+    .val { font-size: 13px; font-weight: 600; }
+
+    .item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .item:last-child { border-bottom: 0; }
+    .item b { display: block; font-size: 14px; margin-bottom: 3px; }
+    .item .m { font-size: 12px; color: var(--muted); }
+    .price {
+      display: inline-block;
+      margin-top: 4px;
+      background: #e8f4fd;
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .chips {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      margin-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .chip {
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--muted);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .chip.on {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      margin: 12px 0 5px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      background: #f8fafc;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: #fff;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+
+    .btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 13px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: bold;
+      font-family: inherit;
+      border: 0;
+      cursor: pointer;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+    .btn-p {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-a {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-g {
+      background: #eef2f6;
+      color: var(--text);
+    }
+    .btn:disabled { opacity: 0.6; }
+
+    .msg {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 13px;
+    }
+    .msg.ok { display: block; background: #d1fae5; color: #065f46; }
+    .msg.err { display: block; background: #fee2e2; color: #991b1b; }
+
+    .load { text-align: center; padding: 24px; color: var(--muted); font-size: 13px; }
+    .foot { text-align: center; padding: 16px; font-size: 11px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="hero-badge">تعمیرات تخصصی با گارانتی</div>
+      <h1 id="shop-name">تعمیرات لوازم خانگی فرایان</h1>
+      <p id="shop-desc">متخصص تعمیر انواع لوازم خانگی برقی</p>
+      <div class="stats">
+        <div><strong>۱۰+</strong><span>سال تجربه</span></div>
+        <div><strong>گارانتی</strong><span>تعمیرات</span></div>
+        <div><strong>قم</strong><span>سرویس حضوری</span></div>
+      </div>
+    </div>
+
+    <div class="main">
+      <!-- HOME -->
+      <div class="sec on" id="s-home">
+        <div class="card">
+          <h2>اطلاعات فروشگاه</h2>
+          <div class="row">
+            <div class="ico">📍</div>
+            <div><div class="lbl">آدرس</div><div class="val" id="shop-address">...</div></div>
+          </div>
+          <div class="row">
+            <div class="ico">📞</div>
+            <div><div class="lbl">تلفن</div><div class="val" id="shop-phone">...</div></div>
+          </div>
+          <div class="row">
+            <div class="ico">🕐</div>
+            <div><div class="lbl">ساعات کاری</div><div class="val" id="shop-hours">...</div></div>
+          </div>
+        </div>
+        <a class="btn btn-a" id="call-btn" href="tel:09128549945">تماس مستقیم</a>
+        <button class="btn btn-p" onclick="go('order')">ثبت درخواست تعمیر</button>
+        <button class="btn btn-g" onclick="go('guide')">راهنمای خرابی‌ها</button>
+      </div>
+
+      <!-- SERVICES -->
+      <div class="sec" id="s-services">
+        <div class="card">
+          <h2>خدمات و قیمت‌ها</h2>
+          <div id="services-list"><div class="load">در حال بارگذاری...</div></div>
+        </div>
+        <p class="foot">قیمت‌ها تقریبی‌اند</p>
+      </div>
+
+      <!-- GUIDE -->
+      <div class="sec" id="s-guide">
+        <div class="chips" id="guide-cats"></div>
+        <div class="card">
+          <h2>راهنمای خرابی‌ها</h2>
+          <div id="guide-list"><div class="load">در حال بارگذاری...</div></div>
+        </div>
+      </div>
+
+      <!-- ORDER -->
+      <div class="sec" id="s-order">
+        <div class="card">
+          <h2>ثبت درخواست تعمیر</h2>
+          <form id="order-form">
+            <label>نام و نام خانوادگی</label>
+            <input type="text" name="name" required placeholder="علی رضایی">
+            <label>شماره تلفن</label>
+            <input type="tel" name="phone" required placeholder="0912xxxxxxx">
+            <label>آدرس کامل</label>
+            <textarea name="address" required placeholder="شهر، خیابان، پلاک..."></textarea>
+            <label>نوع دستگاه و شرح مشکل</label>
+            <textarea name="problem" required placeholder="یخچال سامسونگ - سرد نمی‌کند"></textarea>
+            <button type="submit" class="btn btn-p" id="submit-btn">ثبت درخواست</button>
+          </form>
+          <div class="msg" id="form-msg"></div>
+        </div>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="sec" id="s-contact">
+        <div class="card">
+          <h2>راه‌های ارتباطی</h2>
+          <div class="row">
+            <div class="ico">📞</div>
+            <div><div class="lbl">تلفن</div><div class="val" id="contact-phone">...</div></div>
+          </div>
+          <div class="row">
+            <div class="ico">📍</div>
+            <div><div class="lbl">آدرس</div><div class="val" id="contact-address">...</div></div>
+          </div>
+          <div class="row">
+            <div class="ico">🕐</div>
+            <div><div class="lbl">ساعات کاری</div><div class="val" id="contact-hours">...</div></div>
+          </div>
+        </div>
+        <a class="btn btn-a" id="contact-call" href="tel:09128549945">تماس مستقیم</a>
+        <button class="btn btn-p" onclick="go('order')">ثبت درخواست آنلاین</button>
+      </div>
+    </div>
+    <div class="foot">تعمیرات لوازم خانگی فرایان • قم</div>
+  </div>
+
+  <nav class="nav">
+    <button class="on" data-s="home"><span class="ic">🏠</span>خانه</button>
+    <button data-s="services"><span class="ic">🛠</span>خدمات</button>
+    <button data-s="guide"><span class="ic">📖</span>راهنما</button>
+    <button data-s="order"><span class="ic">📝</span>درخواست</button>
+    <button data-s="contact"><span class="ic">📞</span>تماس</button>
+  </nav>
+
+  <script>
+    var SHEET = "1qEXzgndjZwQJLfD6-SiJ5gYHsfzE9MBHyCnmjm0TDyQ";
+    var G_INTRO = "427708643";
+    var G_SERV = "1239019887";
+    var G_GUIDE = "1718425320";
+    var SCRIPT = "https://script.google.com/macros/s/AKfycbz8BCQqt8Jja4PfLfgww-XTw6l7K0ywrKRSnpnuwQr2DIWOY40WqcaIt7dOkFL7V_r9/exec";
+
+    function csv(gid) {
+      return "https://docs.google.com/spreadsheets/d/" + SHEET + "/export?format=csv&gid=" + gid;
+    }
+
+    function parseCSV(t) {
+      return t.trim().split(/\r?\n/).map(function(line) {
+        var cols = [], cur = "", q = false;
+        for (var i = 0; i < line.length; i++) {
+          var c = line[i];
+          if (c === '"') { q = !q; continue; }
+          if (c === "," && !q) { cols.push(cur.trim()); cur = ""; continue; }
+          cur += c;
+        }
+        cols.push(cur.trim());
+        return cols;
+      });
+    }
+
+    function go(name) {
+      document.querySelectorAll(".sec").forEach(function(s) { s.classList.remove("on"); });
+      document.querySelectorAll(".nav button").forEach(function(b) { b.classList.remove("on"); });
+      var el = document.getElementById("s-" + name);
+      if (el) el.classList.add("on");
+      var btn = document.querySelector('.nav button[data-s="' + name + '"]');
+      if (btn) btn.classList.add("on");
+      window.scrollTo(0, 0);
+    }
+
+    document.querySelectorAll(".nav button").forEach(function(btn) {
+      btn.onclick = function() { go(btn.getAttribute("data-s")); };
+    });
+
+    function setTel(phone) {
+      var p = (phone || "09128549945").replace(/\D/g, "");
+      var tel = p.indexOf("98") === 0 ? "+" + p : (p.charAt(0) === "0" ? p : "0" + p);
+      document.getElementById("call-btn").href = "tel:" + tel;
+      document.getElementById("contact-call").href = "tel:" + tel;
+    }
+
+    function loadIntro() {
+      fetch(csv(G_INTRO)).then(function(r) { return r.text(); }).then(function(t) {
+        var rows = parseCSV(t), info = {};
+        rows.forEach(function(r) { if (r[0] && r[1]) info[r[0]] = r[1]; });
+        document.getElementById("shop-name").textContent = info["نام فروشگاه"] || "تعمیرات فرایان";
+        document.getElementById("shop-desc").textContent = info["توضیحات"] || "";
+        document.getElementById("shop-address").textContent = info["آدرس"] || "-";
+        document.getElementById("shop-phone").textContent = info["تلفن"] || "-";
+        document.getElementById("shop-hours").textContent = info["ساعات کاری"] || "-";
+        document.getElementById("contact-phone").textContent = info["تلفن"] || "-";
+        document.getElementById("contact-address").textContent = info["آدرس"] || "-";
+        document.getElementById("contact-hours").textContent = info["ساعات کاری"] || "-";
+        setTel(info["تلفن"]);
+      }).catch(function() {});
+    }
+
+    function loadServices() {
+      var el = document.getElementById("services-list");
+      fetch(csv(G_SERV)).then(function(r) { return r.text(); }).then(function(t) {
+        var rows = parseCSV(t), html = "";
+        for (var i = 1; i < rows.length; i++) {
+          var r = rows[i];
+          if (!r[0]) continue;
+          html += '<div class="item"><b>' + r[0] + '</b>' +
+            (r[1] ? '<div class="m">' + r[1] + '</div>' : '') +
+            (r[2] ? '<span class="price">از ' + r[2] + ' تومان</span>' : '') + '</div>';
+        }
+        el.innerHTML = html || '<div class="load">خدمتی ثبت نشده</div>';
+      }).catch(function() {
+        el.innerHTML = '<div class="load">خطا در بارگذاری</div>';
+      });
+    }
+
+    var guides = [];
+
+    function loadGuides() {
+      var list = document.getElementById("guide-list");
+      var cats = document.getElementById("guide-cats");
+      fetch(csv(G_GUIDE)).then(function(r) { return r.text(); }).then(function(t) {
+        var rows = parseCSV(t);
+        guides = [];
+        var map = {};
+        for (var i = 1; i < rows.length; i++) {
+          var r = rows[i];
+          if (!r[0]) continue;
+          guides.push({ d: r[0], m: r[1] || "", p: r[2] || "", c: r[3] || "", pr: r[4] || "" });
+          map[r[0]] = 1;
+        }
+        var h = '<button class="chip on" data-c="all">همه</button>';
+        Object.keys(map).forEach(function(k) {
+          h += '<button class="chip" data-c="' + k + '">' + k + '</button>';
+        });
+        cats.innerHTML = h;
+        cats.querySelectorAll(".chip").forEach(function(b) {
+          b.onclick = function() {
+            cats.querySelectorAll(".chip").forEach(function(x) { x.classList.remove("on"); });
+            b.classList.add("on");
+            showGuides(b.getAttribute("data-c"));
+          };
+        });
+        showGuides("all");
+      }).catch(function() {
+        list.innerHTML = '<div class="load">خطا در بارگذاری راهنما</div>';
+      });
+    }
+
+    function showGuides(cat) {
+      var list = document.getElementById("guide-list");
+      var items = cat === "all" ? guides : guides.filter(function(g) { return g.d === cat; });
+      if (!items.length) {
+        list.innerHTML = '<div class="load">راهنمایی ثبت نشده</div>';
+        return;
+      }
+      list.innerHTML = items.map(function(g) {
+        return '<div class="item"><b>' + g.d + (g.m ? " – " + g.m : "") + '</b>' +
+          (g.p ? '<div class="m">مشکل: ' + g.p + '</div>' : '') +
+          (g.c ? '<div class="m">علت: ' + g.c + '</div>' : '') +
+          (g.pr ? '<span class="price">' + g.pr + '</span>' : '') + '</div>';
+      }).join("");
+    }
+
+    document.getElementById("order-form").onsubmit = function(e) {
+      e.preventDefault();
+      var btn = document.getElementById("submit-btn");
+      var msg = document.getElementById("form-msg");
+      msg.className = "msg";
+      var fd = new FormData(e.target);
+      var data = {
+        name: fd.get("name"),
+        phone: fd.get("phone"),
+        address: fd.get("address"),
+        problem: fd.get("problem"),
+        telegram_id: "web",
+        username: "website"
+      };
+      btn.disabled = true;
+      btn.textContent = "در حال ارسال...";
+      fetch(SCRIPT, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      }).then(function() {
+        msg.className = "msg ok";
+        msg.textContent = "درخواست ثبت شد. به زودی تماس می‌گیریم.";
+        e.target.reset();
+      }).catch(function() {
+        msg.className = "msg err";
+        msg.textContent = "خطا در ارسال. لطفا تماس بگیرید.";
+      }).finally(function() {
+        btn.disabled = false;
+        btn.textContent = "ثبت درخواست";
+      });
+    };
+
+    loadIntro();
+    loadServices();
+    loadGuides();
+
+    try {
+      if (window.Bale && window.Bale.WebApp) window.Bale.WebApp.ready();
+    } catch (e) {}
+  </script>
+</body>
+</html>
